@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Jigsaw by Tom Gabrysiak</title>
+    <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="css/buttons.css" type="text/css" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+<!-- JIGSAW CANVAS -->
+<div id="canvas-wrap">
+    <canvas id="canvas"></canvas>
+    <canvas id="buffer"></canvas>
+    <canvas class="hide" id="image-preview"></canvas>
+</div>
+
+<!-- GAME OPTIONS -->
+<ul id="game-options">
+    <li><b id="clock" class="button">00:00:00</b></li>
+    <li><a href="#" id="SHOW_EDGE" class="button left" title="Show edge pieces only">Border</a></li>
+    <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Show middle pieces only">Middle</a></li>
+    <li><a href="#" id="SHOW_ALL" class="button right" title="Show all pieces">All</a></li>
+    <li><a href="#" id="JIGSAW_SHUFFLE" class="button" title="Shuffle">Shuffle</a></li>
+    <li><a href="#" id="SHOW_PREVIEW" class="button" title="Preview">Preview</a></li>
+    <li><a href="#" id="SHOW_HELP" class="button help" title="Help">Help</a></li>
+    <li>
+        <div class="styled-select">
+            <select id="set-parts" selected-index="8">
+                <option value="10" selected>&plusmn; 10 Pieces</option>
+                <option value="20">&plusmn; 20 Pieces</option>
+                <option value="30">&plusmn; 30 Pieces</option>
+                <option value="40">&plusmn; 40 Pieces</option>
+                <option value="50">&plusmn; 50 Pieces</option>
+                <option value="60">&plusmn; 60 Pieces</option>
+                <option value="70">&plusmn; 70 Pieces</option>
+                <option value="80">&plusmn; 80 Pieces</option>
+                <option value="90">&plusmn; 90 Pieces</option>
+                <option value="100">&plusmn; 100 Pieces</option>
+            </select>
+        </div>
+    </li>
+    <li>
+    </li>
+    <li>
+       
+    </li>
+</ul>
+
+<!-- OVERLAY -->
+<div class="hide" id="overlay"></div>
+
+<!-- CONGRATULATION -->
+<div id="congrat" class="hide">
+    <a href="#" class="close" title="cerrar" onclick="jigsaw.UI.close_lightbox();">X</a>
+    <h1>Congratulations!</h1>
+    <h2>You Did It!</h2>
+    <h3><span id="time"></span></h3>
+</div>
+
+<!-- HELP -->
+<div id="help" class="hide">
+    <a href="#" class="close" title="cerrar" onclick="jigsaw.UI.close_lightbox();">X</a>
+    <h2>How to play</h2>
+    <ul>
+        <li>Change the number of pieces with the selector on the top
+            <small>(approximate number)</small>.<br/>
+            <img src="images/selector.png"/>
+        </li>
+        
+        <li>Use left/right arrows, or right click to rotate a piece.</li>
+
+        <li>Toggle between edge or middle pieces:<br>
+            <img src="images/toggle.png"/>
+        </li>
+    </ul>
+    
+    <h3>Good luck.</h3>
+</div>
+
+<!-- SCRIPTS ROMPECABEZAS -->
+<script src="js/event-emiter.min.js"></script>
+<script src="js/canvas-event.min.js"></script>
+<!--
+<script src="js/Util.js"></script>
+<script src="js/jigsaw-objects.js"></script>
+<script src="js/jigsaw-controller.js"></script>
+<script src="js/jigsaw-ui.js"></script>
+<script src="js/jigsaw-events.js"></script>
+-->
+<script src="js/canvas-puzzle.min.js"></script>
+<script>
+jsaw = new jigsaw.Jigsaw();
+// change image url here
+jsaw.set_image("images/mb.png");
+</script>
+</body>
+</html>

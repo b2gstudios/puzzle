@@ -1,0 +1,157 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+html, body, div, ul, li, canvas { margin: 0; padding: 0; }
+
+.hide { display: none; }
+
+/*== Jigsaw puzzle ==*/
+div#canvas-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+canvas#canvas, canvas#buffer, canvas#image-preview {
+    position: absolute;
+    top: 45px;
+    left: 0;
+}
+
+canvas#canvas { z-index: 100; }
+
+canvas#canvas.loading { background: url(../images/loader.gif) no-repeat center; }
+
+canvas#buffer { z-index: 70; }
+
+canvas#image-preview.show {
+    left: 50%;
+    opacity: .5;
+    z-index: 40;
+}
+
+/*== Options bar ==*/
+ul#game-options {
+    z-index: 500;
+    top: 0;
+    left: -20px;
+    position: fixed;
+    border-bottom: 1px solid #000;
+    padding: 5px 10px 5px 30px;
+    width: 100%;
+    height: 32px;
+    -moz-box-shadow: 0 0 5px black;
+    -webkit-box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px black;
+}
+
+ul#game-options > li { 
+    float: left;
+    list-style: none;
+    line-height: 25px;
+}
+
+ul#game-options li b {
+    margin: 0 10px;
+}
+
+/*== Clock ==*/
+#clock {
+    width: 70px;
+    display: block;
+    text-align: center;
+}
+
+/*== Select ==*/
+ul#game-options div.styled-select select {
+    outline: none;
+    background: transparent;
+    width: 120px;
+    padding: 5px;
+    font-size: 13px;
+    border: none;
+    height: 28px;
+    -webkit-appearance: none;
+}
+
+ul#game-options div.styled-select {
+    width: 100px;
+    height: 28px;
+    margin-right: 10px;
+    overflow: hidden;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wCFA8UGU0K3fQAAAC9SURBVDjL3ZFLSgRBEEQz08+IguBKBRcepLv6SH20og7lDXTcVMZz0y0KM0yjGzEgIQnyE0QYEPZDAGf2dwH4lrmjQ5Iel3ZvZq8RkQt/4+57d+fgYmZeTtOEmX2rUgqLstOmt9Zelg+f1VpD0hNwcfJAZu6+qhjHkcy8lrTbZGDv/bbWyqqi1oqkbZlLciCAu1IKwzAAPBxL5fxAfFfuLuB9nueVe4sINinITJcUq9uA997d/jGA51/s3n8A/ISD9bFHikwAAAAASUVORK5CYII=) right no-repeat #f3f3f3;
+    border: 1px solid #333;
+}
+
+/*== Share buttons ==*/
+#share-twitter, #share-facebook {
+    text-indent: -10000px;
+    width: 32px;
+    height: 32px;
+    display: block;
+    cursor:pointer;
+}
+
+#share-twitter {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQA2LzI0LzA59sFr4wAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAAOaSURBVFiFvZfPa1xVFMc/b+b9mHSSSV9izCRpbEmNilbjqgsL0oW6EBSKQl1ZFJEuCtadK/8BFyq4EBeFuhB/bEqEImajiAiCoJZiMBKrSYw4MdNkMpm+effe42Jmwkxn3p10nPbAg+HOeed87jnnfu+MIyI4jgPAhStX386E4Qsp389zG8xUq3/fKBY/funYg6831pwGwMVrK796BwZm7wkCRtw0XirV1+SxMWwqzZ9RRLxbWXrx8KH79gA++OnKO9mJidcezR6gbAzbShOL9BXAcxxybppsKsWP5V3K6+vvvjr38PkUgBuOnJ4OAtZjRSFWRCIY6OsTiVCIFeuxYjoIcMOR0wAuAH6QF6CiTV933ckq2uC5afCD/B6AEkNJawz9LXuSlbRGSW2zLoARUCY5+dLSKh99uEA1quIHPqeef5xH5o72DKBEaKRzATTGuvtPPvsWJ3c3geOACPOXf+DY3EzPAI2cewDKgKUAmIEQ6loBYFyPldV/mZoa7RlA1cetXgGwjp/vty0NDWbs73QxTTOAEcR27j2vbengcPZ/aYWul7xeAbHuxukA8OZblxL9/cDluWePM3N4LBmAJgAl9hnAbQcIJo4k+4tw6curnH/lZKKLaj4FRgSxaUCHCnQz491ljWmkuQJdWtALwICXtsZUrS2QPaKO1qEF3ZKfPTGJssRUzRXQ0uUYdqjA+6eSlVCL8EcUUbXcLbpFCUWwnqgOAD/v7Fpe6G5a2o7hrbXgl5Xr3D893DtAywx0kWK8diX8avEfxHHIeLUbfTwMCLz0vgFapDiWbqfAbVuSkTwLiwXE1ERV4iqYWpRsJs2Jh8aZnRhMDBk3t8CIXYpHBwM2o/bv/fHpjv5KxXyzvMm9+WxizFvSgScm03y66lg8Ws3xPCSTwVBN9GnVAWPXgamc4vjYAN8X9w8R+mAkSgYwNwuRJVghVjyVr3J0KOCLDZdibAcJPeHMVMSGSvZRrTMAW7Em5yZP8e+ViLFA88aMj+/YAaoi/Fa5kagt20rf9JOsXCruZPxwEPufkUIcU4hjq89+bMdodLlUBGoZ02tr88uViJIymPrVfLuekjIsVyLSa2vzAE79cZ/5+rtrhKOThwKPYdfloKUdvdh1pdlSitUohs2Nvz4/+dgRQDmABwwB3tMXLr5nZh94UnK53jXWYs729lZqaXHh8stnzgExUGoBoFaNO2HSDOBQG8bG5zsFIID6D4Ek7cRpQpS6AAAAAElFTkSuQmCC) no-repeat;
+}
+
+#share-facebook {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQA2LzI0LzA59sFr4wAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAALRSURBVFiFzZfPaxNBFMe/s7tNqi1NKIg/arFCamnx5EUqvepJL0WxtuBFPQhqT63+C9aLiOBdLJUgglBEvPfgwR4kWqUV2/oDbZq1SZpsdnZnnocm22yyTWh3F/xCYCdv930/O+/NsMOICIwxAMDl8en7IG2MSOlCCGJM/gSzp58/HL3r/FcBuHR75hOg9nce7EBHZxtUTQnUXNgSOb0A/U8OgFhIPhoZcAAu3no6BUQnjvUfgW1aKG6WIGwZKICqKdjf3got2oKVhV8AzAcvHl+d1ABACHW081AM2cwmbG4HalyR5AJZvQAtoiF2IAb9d2YUQAWAdTGFgZesUMyrxU0bkdYIhGBdAKABgCQC5xySyFdyo2DAKBrQ03pdLDGQ2Iao8tIAgKSEsPzVXE/rOH64DacG+3B9ZLAuPnbvlXMtJIGk3AYQUvp6e6NoYPhsH26MnNnxntr8ohpA+gTo7Y41NPcCkNUAJCXIB8CJ7njTe2rzk3sGCFLuHeBaTc1tIZF8k8KXlQ18/Jr2fKbi56wCH/5Qylt5RZqq4PPKBlJL3uYVTwfAbxN66cPiWsO48NsDP5aWG8a/L35zjY8melxj3z3wfnZiV/ELd5KucU0PBF+CWtUtQwpwH9gTgKsHyN8+4GVWvTKevU7V7wPuGdj67Ubnbs4412+fXHHFFMZccU/Isl9oJWiWz1WCMJqwKUB1CUhIkJ+t0EPN8pH4n2ZAkkSpUAgUoFk+F0C8vQM9vcEeBRJN8i2b9jYAiJD/m0d0XzQwAF7iO8ZMwwTKJdo6fagQvBTO57iXeMkGFAgHgKk0n89kYZnhf5ZbpoV8Jgum0TwAKIwxNpccHyIm+dpqGrn1HMyiGbixWTSRW89hbTUNYpLPJceHGNs6lUYAxAFETw9PzTIZOUkCwR4My2IqJCk89e7l5HkAJoANF0AYpg3kADAALUA4b91AEoD1D2jZsYholQ5sAAAAAElFTkSuQmCC) no-repeat;
+}
+
+/*== Modal window ==*/
+div#overlay {
+    background: black;
+    opacity: .5;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 500;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+div.modal {
+    top: 100px;
+    left: 50%;
+    margin-left: -200px;
+    z-index: 1000;
+    border: 5px solid #000;
+    background: #fff;
+    box-shadow: 0 0 8px #000;
+    -webkit-box-shadow: 0 0 8px #000;
+    -moz-box-shadow: 0 0 8px #000;
+    -o-box-shadow: 0 0 8px #000;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 20px;
+    position: absolute;
+}
+
+div.modal a.close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid #333;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0 3px;
+    color: #000;
+    display: block;
+}
+
+div#congrat { text-align: center; }
+
+div#help {
+    margin-left: -200px;
+    top: 50px;
+    width: 400px;
+    font-size: 15px;
+}
+
+div#help li { margin: 10px; }
